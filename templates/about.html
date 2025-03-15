@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Phishing Shield</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container">
+            <a class="navbar-brand" href="/">Phishing Shield</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/history">History</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/about">About</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card shadow">
+                    <div class="card-body">
+                        <h2 class="card-title mb-4">About Phishing Shield</h2>
+
+                        <h4>What is Phishing Shield?</h4>
+                        <p>
+                            Phishing Shield is an advanced URL analysis tool designed to help identify potentially
+                            malicious websites. Using a combination of URL analysis, domain reputation checks, and
+                            pattern recognition, our tool provides a comprehensive risk assessment.
+                        </p>
+
+                        <h4 class="mt-4">How Does It Work?</h4>
+                        <p>
+                            Our system analyzes multiple factors to determine the risk level of a URL:
+                        </p>
+                        <ul>
+                            <li><strong>URL Structure Analysis:</strong> Examines the URL for suspicious characteristics like excessive length, special characters, and unusual formatting.</li>
+                            <li><strong>Domain Age Check:</strong> Newer domains are more likely to be used for phishing, so we check how long a domain has been registered.</li>
+                            <li><strong>TLD Risk Assessment:</strong> Some top-level domains (TLDs) are more commonly associated with malicious sites due to lower registration requirements.</li>
+                            <li><strong>SSL Certificate Verification:</strong> We check if the site uses secure HTTPS connections.</li>
+                            <li><strong>Suspicious Pattern Detection:</strong> Our system identifies common keywords and patterns used in phishing URLs.</li>
+                        </ul>
+
+                        <h4 class="mt-4">Why Use Phishing Shield?</h4>
+                        <p>
+                            Unlike many phishing detection tools that simply give a binary "safe" or "unsafe" result,
+                            Phishing Shield provides:
+                        </p>
+                        <ul>
+                            <li><strong>Detailed Risk Breakdown:</strong> See exactly which factors contribute to a URL's risk assessment.</li>
+                            <li><strong>Educational Explanations:</strong> Learn about the specific techniques phishers use.</li>
+                            <li><strong>Transparent Analysis:</strong> Understand the reasoning behind each risk score.</li>
+                        </ul>
+
+                        <div class="alert alert-warning mt-4">
+                            <h5>Disclaimer</h5>
+                            <p class="mb-0">
+                                While Phishing Shield uses advanced techniques to assess URL risk, no detection system is
+                                100% accurate. Always exercise caution when visiting unfamiliar websites and never share
+                                sensitive information unless you're absolutely certain the site is legitimate.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="bg-light mt-5 py-3">
+        <div class="container text-center">
+            <p class="text-muted mb-0">Phishing Shield &copy; 2023 - Educational Project</p>
+            <p class="text-muted small mb-0">This tool is for educational purposes only.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

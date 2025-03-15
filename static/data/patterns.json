@@ -1,0 +1,13 @@
+{
+  "suspicious_keywords": [
+    "secure", "account", "banking", "login", "signin", "verify", "verification",
+    "authenticate", "wallet", "confirm", "update", "paypal", "password",
+    "credential", "security", "apple", "microsoft", "netflix", "amazon",
+    "facebook", "google", "verify-now", "auth", "access", "ebay", "recover",
+    "unlock", "billing", "payment", "alert", "suspended", "unusual", "activity"
+  ],
+  "url_shorteners": [
+    "bit.ly", "tinyurl.com", "t.co", "goo.gl", "is.gd", "cli.gs", "ow.ly",
+    "soo.gd", "s2r.co", "adf.ly", "buff.ly", "rebrand.ly", "shorturl.at"
+  ]
+}

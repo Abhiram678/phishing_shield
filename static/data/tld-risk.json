@@ -1,0 +1,11 @@
+{
+  "high_risk": [
+    "tk", "ml", "ga", "cf", "gq", "xyz", "top", "club", "online", "site", "work"
+  ],
+  "medium_risk": [
+    "info", "biz", "me", "ws", "live", "click", "link", "app", "co"
+  ],
+  "low_risk": [
+    "com", "org", "net", "edu", "gov", "mil", "io", "dev", "ai"
+  ]
+}

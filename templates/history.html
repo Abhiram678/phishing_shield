@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>URL Check History - Phishing Shield</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container">
+            <a class="navbar-brand" href="/">Phishing Shield</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/history">History</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/about">About</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-10">
+                <div class="card shadow">
+                    <div class="card-body">
+                        <h2 class="card-title mb-4">URL Check History</h2>
+
+                        <div id="history-container">
+                            <div class="alert alert-info" id="no-history" style="display: none;">
+                                No URL check history found. Check some URLs first!
+                            </div>
+                            <div class="table-responsive">
+                                <table class="table table-hover" id="history-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Date & Time</th>
+                                            <th>URL</th>
+                                            <th>Risk Level</th>
+                                            <th>Score</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="history-table-body">
+                                        <!-- History entries will be inserted here by JavaScript -->
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="text-center mt-3">
+                                <button id="clear-history" class="btn btn-danger">Clear History</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="bg-light mt-5 py-3">
+        <div class="container text-center">
+            <p class="text-muted mb-0">Phishing Shield &copy; 2023 - Educational Project</p>
+            <p class="text-muted small mb-0">This tool is for educational purposes only.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            displayHistory();
+
+            // Set up clear history button
+            document.getElementById('clear-history').addEventListener('click', function() {
+                if (confirm('Are you sure you want to clear your URL check history?')) {
+                    localStorage.removeItem('phishingShieldHistory');
+                    displayHistory();
+                }
+            });
+        });
+
+        function displayHistory() {
+            const historyData = JSON.parse(localStorage.getItem('phishingShieldHistory') || '[]');
+            const tableBody = document.getElementById('history-table-body');
+            const noHistoryAlert = document.getElementById('no-history');
+            const historyTable = document.getElementById('history-table');
+
+            // Clear existing content
+            tableBody.innerHTML = '';
+
+            if (historyData.length === 0) {
+                noHistoryAlert.style.display = 'block';
+                historyTable.style.display = 'none';
+                document.getElementById('clear-history').style.display = 'none';
+            } else {
+                noHistoryAlert.style.display = 'none';
+                historyTable.style.display = 'table';
+                document.getElementById('clear-history').style.display = 'inline-block';
+
+                // Add history entries
+                historyData.forEach((entry, index) => {
+                    const row = document.createElement('tr');
+
+                    // Format date
+                    const date = new Date(entry.timestamp);
+                    const formattedDate = date.toLocaleString();
+
+                    // Get score color class
+                    const scoreClass = getScoreColorClass(entry.overallScore);
+
+                    row.innerHTML = `
+                        <td>${formattedDate}</td>
+                        <td><a href="${entry.url}" target="_blank">${truncateUrl(entry.url, 40)}</a></td>
+                        <td class="${getRiskLevelClass(entry.riskLevel)}">${entry.riskLevel}</td>
+                        <td class="${scoreClass}">${Math.round(entry.overallScore * 100)}%</td>
+                        <td><button class="btn btn-sm btn-primary check-again" data-url="${entry.url}">Check Again</button></td>
+                    `;
+
+                    tableBody.appendChild(row);
+                });
+
+                // Add event listeners to "Check Again" buttons
+                document.querySelectorAll('.check-again').forEach(button => {
+                    button.addEventListener('click', function() {
+                        const url = this.getAttribute('data-url');
+                        window.location.href = `/?url=${encodeURIComponent(url)}`;
+                    });
+                });
+            }
+        }
+
+        function truncateUrl(url, maxLength) {
+            if (url.length <= maxLength) return url;
+            return url.substring(0, maxLength) + '...';
+        }
+
+        function getScoreColorClass(score) {
+            if (score >= 0.7) return 'text-danger';
+            if (score >= 0.4) return 'text-warning';
+            return 'text-success';
+        }
+
+        function getRiskLevelClass(riskLevel) {
+            if (riskLevel.includes('High')) return 'text-danger';
+            if (riskLevel.includes('Medium')) return 'text-warning';
+            return 'text-success';
+        }
+    </script>
+</body>
+</html>
